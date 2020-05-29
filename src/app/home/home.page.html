@@ -1,20 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Liste des concerts
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card class="ion-padding">
+    <ion-card-title>
+      Filtres
+    </ion-card-title>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Par genre</ion-label>
+        <ion-select [(ngModel)]="genreId" (ionChange)="onGenreChange()">
+          <ion-select-option value="">Tous</ion-select-option>
+          <ion-select-option *ngFor="let genre of genreList" [value]="genre.id"
+            >{{ genre.nom }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab vertical="top" horizontal="end" slot="fixed" edge="true">
+    <ion-fab-button color="danger" routerLink="/form">
+      <ion-icon name="add-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list>
+    <ion-item
+      *ngFor="let concert of concertList"
+      routerLink="/form/{{ concert.id }}"
+    >
+      <ion-label>
+        <h3>{{ concert.artiste }}</h3>
+        <p>
+          le {{ concert.dateConcert | date: 'd/M/yyyy'}} à {{ concert.salle }}
+        </p>
+      </ion-label>
+      <ion-chip slot="end" color="warning">{{ concert.note }}</ion-chip>
+      <ion-badge slot="end" color="secondary">{{ concert.genre }}</ion-badge>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button routerLink="/stat-salle">Liste des salles</ion-button>
+  </ion-toolbar>
+</ion-footer>

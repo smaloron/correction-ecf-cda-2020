@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Artiste</ion-label>
+      <ion-input type="text" [(ngModel)]="concert.artiste"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Date du concert</ion-label>
+      <ion-datetime [(ngModel)]="concert.dateConcert"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Genre</ion-label>
+      <ion-select [(ngModel)]="concert.idGenre">
+        <ion-select-option *ngFor="let genre of genreList" [value]="genre.id">
+          {{ genre.nom }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Nom de la salle</ion-label>
+      <ion-select [(ngModel)]="concert.idSalle">
+        <ion-select-option *ngFor="let salle of salleList" [value]="salle.id">
+          {{ salle.nom }} - {{ salle.ville }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Note</ion-label>
+      <ion-range
+        min="1"
+        max="5"
+        [(ngModel)]="concert.note"
+        pin="true"
+        snaps="true"
+        ticks="true"
+      ></ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Commentaire</ion-label>
+      <ion-textarea rows="6" [(ngModel)]="concert.commentaire"></ion-textarea>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="validate()">Valider</ion-button>
+  </ion-toolbar>
+</ion-footer>
